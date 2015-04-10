@@ -2,19 +2,50 @@
     <div class="navbar navbar-default" role="navigation">
       <div class="container">
         <div class="navbar-header">
-          <div class="navbar-brand"><a href="{{project.web_url}}" target="_blank"> {{project.name}} </a> <span class="hidden-xs"> - {{project.description}}</span></div>
+          <div class="navbar-brand"><a href="{{project.web_url}}" target="_blank"> {{project.name_with_namespace}} </a>
+            <span class="hidden-xs"> - {{project.description}}</span>
+          </div>
         </div>
       </div>
     </div>
+      <div id="project-chooser"class="btn-group">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+          Projects <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+           <li ng-repeat="project in allProjects"> <a href="#/{{project.id}}">{{project.name}}</a> </li>
+        </ul>
+      </div>
+  </div>
+<div class="row">
+
+  <div class="branch text-align-center col-xs11 col-md-3 col-sm-3 col-lg-3 well"
+    ng-show="!!master"
+    title="{{master.commit.message}}">
+    <h4> {{master.name}} </h4>
+    <ul class="text-align-center">
+      <li> By: <strong>{{master.commit.committer_name}} </strong></li>
+      <li> On: <strong>{{master.commit.committed_date}}</li> </strong>
+    </ul>
   </div>
 
-<div class="row">
-  <div class="branch col-xs11 col-md-5 col-sm-5 col-lg-5 well"
+   <div class="branch text-align-center col-xs11 col-md-3 col-sm-3 col-lg-3 well"
+    ng-show="!!production"
+     title="{{production.commit.message}}">
+    <h4>{{production.name}}</h4>
+    <ul class="text-align-center">
+      <li> By: <strong>{{production.commit.committer_name}} </strong></li>
+      <li> On: <strong>{{production.commit.committed_date}}</li> </strong>
+    </ul>
+  </div>
+
+  <div class="branch text-align-center col-xs11 col-md-3 col-sm-3 col-lg-3 well"
     ng-repeat="branch in branches"
-    ng-class="branch.css">
+    ng-class="branch.css"
+    title="{{branch.commit.message}}">
 
   <h4> <a href="{{branch.jiraUrl}}" target="_blank"> {{branch.name}}</a> </h4>
-    <ul>
+    <ul class="text-align-center">
       <li> By: <strong>{{branch.commit.committer_name}} </strong></li>
       <li> On: <strong>{{branch.commit.committed_date}}</li> </strong>
     </ul>

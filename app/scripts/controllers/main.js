@@ -9,32 +9,16 @@
  */
 angular.module('branchWatcherApp')
   .controller('MainCtrl', function ($scope, $routeParams, gitLabService, configService) {
-    var brakeOffDate = new Date();
     var master;
     var production;
     var id;
     var branches =[];
 
-
-    brakeOffDate.setDate(brakeOffDate.getDate() - 10);
-
-
-    //Set project id
-    if ($routeParams && $routeParams.id) {
-      id = $routeParams.id;
-    } else {
-      //Default to Eva-GUI branch
-      id = '54';
-    }
-
-    //Set project info
-    gitLabService.getProjectInfo(id).then(function (result) {
-      console.dir(result);
-      $scope.project = result;
-    });
+    /*********************
+    Declaring functions
+    **********************/
 
     function getJiraLink(branchName) {
-      //var jiraInfo = branchName.substr(0, branchName.indexOf(0,'-'));
       var jiraInfo = branchName.match(/[A-Z]+-[0-9]+/);
       if (jiraInfo) {
         return configService.urls.jira  + jiraInfo[0];
@@ -43,8 +27,11 @@ angular.module('branchWatcherApp')
     }
 
     function addBrancheInfo (branch) {
+      var brakeOffDate = new Date();
       var lastCommit = new Date(branch.commit.committed_date);
       var masterDate = new Date(master.commit.committed_date);
+
+      brakeOffDate.setDate(brakeOffDate.getDate() - configService.dangerAfterDay);
 
       if (lastCommit < brakeOffDate) {
         branch.css = 'danger';
@@ -59,7 +46,10 @@ angular.module('branchWatcherApp')
 
 
     function formatTime (branch) {
-      branch.commit.committed_date = moment(branch.commit.committed_date).format('YYYY-MM-DD HH:MM');
+      if (branch && branch.commit) {
+        branch.commit.committed_date = moment(branch.commit.committed_date).format('YYYY-MM-DD HH:MM');
+      }
+      console.log(branch);
       return branch;
     }
 
@@ -68,28 +58,51 @@ angular.module('branchWatcherApp')
     }
 
     function sortByCommitDate(a, b) {
-        var lastCommitA = new Date(a.commit.committed_date);
-        var lastCommitB = new Date(b.commit.committed_date);
+      var lastCommitA = new Date(a.commit.committed_date);
+      var lastCommitB = new Date(b.commit.committed_date);
 
-        if (lastCommitA > lastCommitB) {
-          return -1;
-        }
-        if (lastCommitA < lastCommitB) {
-          return 1;
-        }
-        return 0;
+      if (lastCommitA > lastCommitB) {
+        return -1;
       }
+      if (lastCommitA < lastCommitB) {
+        return 1;
+      }
+      return 0;
+    }
+
+    /**********************
+    Setup and init
+    ***********************/
+
+    //Set project id
+    if ($routeParams && $routeParams.id) {
+      id = $routeParams.id;
+    } else {
+      //Default to Eva-GUI branch
+      id = '54';
+    }
+
+    //Get all projects and show the last updated
+    gitLabService.getAllProjects().then(function (result) {
+      $scope.allProjects = result.slice(0, 25);
+    });
+
+    //Set project info
+    gitLabService.getProjectInfo(id).then(function (result) {
+      $scope.project = result;
+    });
 
     gitLabService.getBranchesByProject(id).then(function(data){
+
       //Pick out only master
-      master = _.head(_.filter(data, function(branch) {
+      master = formatTime(_.head(_.filter(data, function(branch) {
         return branch.name === 'master';
-      }));
+      })));
 
       //pick out only production
-      production = _.head(_.filter(data, function(branch) {
+      production = formatTime(_.head(_.filter(data, function(branch) {
         return branch.name === 'production';
-      }));
+      })));
 
       //rest of the branches
       branches  = _.map(_.filter(data, filterOffical), formatTime);
@@ -99,7 +112,8 @@ angular.module('branchWatcherApp')
 
       //Update status and set scope
       $scope.branches  = _.map(branches, addBrancheInfo);
-
+      $scope.master = master;
+      $scope.production = production;
 
     });
   });

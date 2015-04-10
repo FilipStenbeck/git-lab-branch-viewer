@@ -8500,7 +8500,12 @@ a {
   color: black;
 }
 
-/* line 10, ../../app/styles/main.scss */
+/* line 9, ../../app/styles/main.scss */
+* {
+  box-sizing: initial;
+}
+
+/* line 13, ../../app/styles/main.scss */
 .browsehappy {
   margin: 0.2em 0;
   background: #ccc;
@@ -8508,13 +8513,13 @@ a {
   padding: 0.2em 0;
 }
 
-/* line 17, ../../app/styles/main.scss */
+/* line 20, ../../app/styles/main.scss */
 body {
   padding: 0;
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
-/* line 22, ../../app/styles/main.scss */
+/* line 25, ../../app/styles/main.scss */
 .header,
 .marketing,
 .footer {
@@ -8523,13 +8528,13 @@ body {
 }
 
 /* Custom page header */
-/* line 30, ../../app/styles/main.scss */
+/* line 33, ../../app/styles/main.scss */
 .header {
   border-bottom: 1px solid #e5e5e5;
   margin-bottom: 10px;
   /* Make the masthead heading the same height as the navigation */
 }
-/* line 35, ../../app/styles/main.scss */
+/* line 38, ../../app/styles/main.scss */
 .header h3 {
   margin-top: 0;
   margin-bottom: 0;
@@ -8538,84 +8543,76 @@ body {
 }
 
 /* Custom page footer */
-/* line 44, ../../app/styles/main.scss */
+/* line 47, ../../app/styles/main.scss */
 .footer {
   padding-top: 19px;
   color: #777;
   border-top: 1px solid #e5e5e5;
 }
 
-/* line 50, ../../app/styles/main.scss */
+/* line 53, ../../app/styles/main.scss */
 .container-narrow > hr {
   margin: 30px 0;
 }
 
-/* line 54, ../../app/styles/main.scss */
+/* line 57, ../../app/styles/main.scss */
 .branch {
   margin-right: 22px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
 }
-/* line 56, ../../app/styles/main.scss */
+/* line 60, ../../app/styles/main.scss */
 .branch ul {
   white-space: nowrap;
   overflow: hidden;
 }
-/* line 57, ../../app/styles/main.scss */
+/* line 61, ../../app/styles/main.scss */
 .branch ul li {
   list-style-type: none;
 }
-/* line 63, ../../app/styles/main.scss */
+/* line 67, ../../app/styles/main.scss */
 .branch div {
   white-space: nowrap;
   overflow: hidden;
 }
-/* line 67, ../../app/styles/main.scss */
+/* line 71, ../../app/styles/main.scss */
 .branch h4 {
   white-space: nowrap;
   overflow: hidden;
 }
 
-/* line 73, ../../app/styles/main.scss */
+/* line 77, ../../app/styles/main.scss */
 .danger {
-  background: #fc3939;
+  background: #fb5d5d;
 }
 
-/* line 77, ../../app/styles/main.scss */
+/* line 81, ../../app/styles/main.scss */
 .warning {
   background: #fefe8b;
 }
 
-/* line 81, ../../app/styles/main.scss */
+/* line 85, ../../app/styles/main.scss */
 .ok {
   background: #3bb63b;
 }
 
+/* line 89, ../../app/styles/main.scss */
+#project-chooser {
+  margin-bottom: 10px;
+  margin-top: -10px;
+}
+
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
-  /* line 88, ../../app/styles/main.scss */
+  /* line 97, ../../app/styles/main.scss */
   .container {
     max-width: 1960px;
   }
 
   /* Remove the padding we set earlier */
-  /* line 93, ../../app/styles/main.scss */
-  .header,
-  .marketing,
-  .footer {
+  /* line 101, ../../app/styles/main.scss */
+  .header {
     padding-left: 0;
     padding-right: 0;
-  }
-
-  /* Space out the masthead */
-  /* line 100, ../../app/styles/main.scss */
-  .header {
     margin-bottom: 30px;
   }
-
-  /* Remove the bottom border on the jumbotron for visual effect */
-  /* line 104, ../../app/styles/main.scss */
-  .jumbotron {
-    border-bottom: 0;
-  }
 }
-
-/*# sourceMappingURL=main.css.map */
