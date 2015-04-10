@@ -49,7 +49,6 @@ angular.module('branchWatcherApp')
       if (branch && branch.commit) {
         branch.commit.committed_date = moment(branch.commit.committed_date).format('YYYY-MM-DD HH:MM');
       }
-      console.log(branch);
       return branch;
     }
 

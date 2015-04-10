@@ -24,6 +24,7 @@
     title="{{master.commit.message}}">
     <h4> {{master.name}} </h4>
     <ul class="text-align-center">
+      <li> <i>Last commit</i></li>
       <li> By: <strong>{{master.commit.committer_name}} </strong></li>
       <li> On: <strong>{{master.commit.committed_date}}</li> </strong>
     </ul>
@@ -34,6 +35,7 @@
      title="{{production.commit.message}}">
     <h4>{{production.name}}</h4>
     <ul class="text-align-center">
+      <li> <i>Last commit</i></li>
       <li> By: <strong>{{production.commit.committer_name}} </strong></li>
       <li> On: <strong>{{production.commit.committed_date}}</li> </strong>
     </ul>
@@ -43,9 +45,9 @@
     ng-repeat="branch in branches"
     ng-class="branch.css"
     title="{{branch.commit.message}}">
-
   <h4> <a href="{{branch.jiraUrl}}" target="_blank"> {{branch.name}}</a> </h4>
     <ul class="text-align-center">
+      <li> <i>Last commit</i></li>
       <li> By: <strong>{{branch.commit.committer_name}} </strong></li>
       <li> On: <strong>{{branch.commit.committed_date}}</li> </strong>
     </ul>

@@ -26,7 +26,6 @@ angular.module('branchWatcherApp')
     function getBranchesByProject (id) {
       var deferred = $q.defer();
       var promise = deferred.promise;
-      console.log(getBranchUrl(id));
       $http.get(getBranchUrl(id)).then(function(response) {
         deferred.resolve(response.data);
       });
