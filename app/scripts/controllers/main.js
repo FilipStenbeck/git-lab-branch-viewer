@@ -69,29 +69,9 @@ angular.module('branchWatcherApp')
       return 0;
     }
 
-    /**********************
-    Setup and init
-    ***********************/
+    function handleBranches () {
 
-    //Set project id
-    if ($routeParams && $routeParams.id) {
-      id = $routeParams.id;
-    } else {
-      //Default to Eva-GUI branch
-      id = '54';
-    }
-
-    //Get all projects and show the last updated
-    gitLabService.getAllProjects().then(function (result) {
-      $scope.allProjects = result.slice(0, 25);
-    });
-
-    //Set project info
-    gitLabService.getProjectInfo(id).then(function (result) {
-      $scope.project = result;
-    });
-
-    gitLabService.getBranchesByProject(id).then(function(data){
+      gitLabService.getBranchesByProject(id).then(function(data) {
 
       //Pick out only master
       master = formatTime(_.head(_.filter(data, function(branch) {
@@ -114,5 +94,33 @@ angular.module('branchWatcherApp')
       $scope.master = master;
       $scope.production = production;
 
+      });
+    }
+
+    /**********************
+    Setup and init
+    ***********************/
+
+    //Set project id
+    if ($routeParams && $routeParams.id) {
+      id = $routeParams.id;
+    } else {
+      //Default to Eva-GUI branch
+      id = '54';
+    }
+
+    //Get all projects and show the last updated
+    gitLabService.getAllProjects().then(function (result) {
+      $scope.allProjects = result.slice(0, 25);
     });
+
+    //Set project info
+    gitLabService.getProjectInfo(id).then(function (result) {
+      $scope.project = result;
+    });
+
+    //get initial branches and start the polling
+    handleBranches();
+    window.setInterval(handleBranches, 10000);
+
   });
