@@ -1,5 +1,15 @@
+  <div class="header">
+    <div class="navbar navbar-default" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <div class="navbar-brand"><a href="{{project.web_url}}" target="_blank"> {{project.name}} </a> <span class="hidden-xs"> - {{project.description}}</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 <div class="row">
-  <div class="branch col-xs11 col-md-4 col-sm-4 col-lg-4 well"
+  <div class="branch col-xs11 col-md-5 col-sm-5 col-lg-5 well"
     ng-repeat="branch in branches"
     ng-class="branch.css">
 

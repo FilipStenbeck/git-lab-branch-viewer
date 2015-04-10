@@ -15,6 +15,10 @@ angular.module('branchWatcherApp')
       return configService.urls.gitLab + 'api/v3/projects/' + id + '/repository/branches?private_token=' + privateToken + '&per_page=100';
     }
 
+     function getProjectUrl (id) {
+      return configService.urls.gitLab + 'api/v3/projects/' + id + '?private_token=' + privateToken;
+    }
+
     function getBranchesByProject (id) {
       var deferred = $q.defer();
       var promise = deferred.promise;
@@ -24,8 +28,18 @@ angular.module('branchWatcherApp')
       return promise;
     }
 
+    function getProjectInfo (id) {
+      var deferred = $q.defer();
+      var promise = deferred.promise;
+      $http.get(getProjectUrl(id)).then(function(response) {
+        deferred.resolve(response.data);
+      });
+      return promise;
+    }
+
 
     return {
-      getBranchesByProject: getBranchesByProject
+      getBranchesByProject: getBranchesByProject,
+      getProjectInfo: getProjectInfo
     };
   });

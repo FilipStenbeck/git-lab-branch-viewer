@@ -8,17 +8,32 @@
  * Controller of the branchWatcherApp
  */
 angular.module('branchWatcherApp')
-  .controller('MainCtrl', function ($scope, gitLabService, configService) {
+  .controller('MainCtrl', function ($scope, $routeParams, gitLabService, configService) {
     var brakeOffDate = new Date();
     var master;
     var production;
+    var id;
     var branches =[];
+
 
     brakeOffDate.setDate(brakeOffDate.getDate() - 10);
 
 
+    //Set project id
+    if ($routeParams && $routeParams.id) {
+      id = $routeParams.id;
+    } else {
+      //Default to Eva-GUI branch
+      id = '54';
+    }
+
+    //Set project info
+    gitLabService.getProjectInfo(id).then(function (result) {
+      console.dir(result);
+      $scope.project = result;
+    });
+
     function getJiraLink(branchName) {
-      console.log();
       //var jiraInfo = branchName.substr(0, branchName.indexOf(0,'-'));
       var jiraInfo = branchName.match(/[A-Z]+-[0-9]+/);
       if (jiraInfo) {
@@ -65,7 +80,7 @@ angular.module('branchWatcherApp')
         return 0;
       }
 
-    gitLabService.getBranchesByProject('54').then(function(data){
+    gitLabService.getBranchesByProject(id).then(function(data){
       //Pick out only master
       master = _.head(_.filter(data, function(branch) {
         return branch.name === 'master';
