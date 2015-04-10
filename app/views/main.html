@@ -1,0 +1,12 @@
+<div class="row">
+  <div class="branch col-xs11 col-md-4 col-sm-4 col-lg-4 well"
+    ng-repeat="branch in branches"
+    ng-class="branch.css">
+
+  <h4> {{branch.name}} </h4>
+    <ul>
+      <li> By: <strong>{{branch.commit.committer_name}} </strong></li>
+      <li> On: <strong>{{branch.commit.committed_date}}</li> </strong>
+    </ul>
+  </div>
+</div>
