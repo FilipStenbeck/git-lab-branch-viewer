@@ -3,7 +3,7 @@
     ng-repeat="branch in branches"
     ng-class="branch.css">
 
-  <h4> {{branch.name}} </h4>
+  <h4> <a href="{{branch.jiraUrl}}" target="_blank"> {{branch.name}}</a> </h4>
     <ul>
       <li> By: <strong>{{branch.commit.committer_name}} </strong></li>
       <li> On: <strong>{{branch.commit.committed_date}}</li> </strong>

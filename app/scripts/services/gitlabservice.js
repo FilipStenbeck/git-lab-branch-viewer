@@ -8,11 +8,11 @@
  * Service in the branchWatcherApp.
  */
 angular.module('branchWatcherApp')
-  .service('gitLabService', function ($http, $q) {
+  .service('gitLabService', function ($http, $q, configService) {
     var privateToken = '616bMnMswMMGAzEGMtUx';
 
     function getBranchUrl (id) {
-      return 'https://gitlab.besedo.com/api/v3/projects/' + id + '/repository/branches?private_token=' + privateToken + '&per_page=100';
+      return configService.urls.gitLab + 'api/v3/projects/' + id + '/repository/branches?private_token=' + privateToken + '&per_page=100';
     }
 
     function getBranchesByProject (id) {

@@ -8,7 +8,7 @@
  * Controller of the branchWatcherApp
  */
 angular.module('branchWatcherApp')
-  .controller('MainCtrl', function ($scope, gitLabService) {
+  .controller('MainCtrl', function ($scope, gitLabService, configService) {
     var brakeOffDate = new Date();
     var master;
     var production;
@@ -18,12 +18,16 @@ angular.module('branchWatcherApp')
 
 
     function getJiraLink(branchName) {
+      console.log();
       //var jiraInfo = branchName.substr(0, branchName.indexOf(0,'-'));
-      //var jiraInfo = branchName.match(/[A-Z][A-Z][A-Z]-[0-9][0-9][0-9]/)[1];
-      return branchName;
+      var jiraInfo = branchName.match(/[A-Z]+-[0-9]+/);
+      if (jiraInfo) {
+        return configService.urls.jira  + jiraInfo[0];
+      }
+      return '';
     }
 
-    function setStatus (branch) {
+    function addBrancheInfo (branch) {
       var lastCommit = new Date(branch.commit.committed_date);
       var masterDate = new Date(master.commit.committed_date);
 
@@ -34,7 +38,7 @@ angular.module('branchWatcherApp')
       } else {
          branch.css = 'ok';
       }
-      console.log(getJiraLink(branch.name));
+      branch.jiraUrl = getJiraLink(branch.name);
       return branch;
     }
 
@@ -79,7 +83,7 @@ angular.module('branchWatcherApp')
       branches = branches.sort(sortByCommitDate);
 
       //Update status and set scope
-      $scope.branches  = _.map(branches, setStatus);
+      $scope.branches  = _.map(branches, addBrancheInfo);
 
 
     });
