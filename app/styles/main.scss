@@ -22,9 +22,10 @@ body {
 }
 
 .header {
-   padding-left: 15px;
+  padding-left: 15px;
   padding-right: 15px;
   border-bottom: 1px solid #e5e5e5;
+  margin-top: 5px;
   margin-bottom: 10px;
 
   h3 {
@@ -34,6 +35,12 @@ body {
     padding-bottom: 19px;
   }
 }
+
+.navbar-brand {
+  line-height: 10px;
+  height: 5px;
+}
+
 
 
 
